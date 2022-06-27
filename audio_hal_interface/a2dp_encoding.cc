@@ -247,10 +247,10 @@ SampleRate a2dp_codec_to_hal_sample_rate(
       return SampleRate::RATE_176400;
     case BTAV_A2DP_CODEC_SAMPLE_RATE_192000:
       return SampleRate::RATE_192000;
-    case BTAV_A2DP_CODEC_SAMPLE_RATE_16000:
-      return SampleRate::RATE_16000;
-    case BTAV_A2DP_CODEC_SAMPLE_RATE_24000:
-      return SampleRate::RATE_24000;
+    // case BTAV_A2DP_CODEC_SAMPLE_RATE_16000:
+    //   return SampleRate::RATE_16000;
+    // case BTAV_A2DP_CODEC_SAMPLE_RATE_24000:
+    //   return SampleRate::RATE_24000;
     default:
       return SampleRate::RATE_UNKNOWN;
   }
@@ -415,9 +415,9 @@ bool a2dp_is_audio_codec_config_params_changed(
       }
       break;
     }
-    case BTAV_A2DP_CODEC_INDEX_SOURCE_AAC:
-      [[fallthrough]];
-    case BTAV_A2DP_CODEC_INDEX_SINK_AAC: {
+    case BTAV_A2DP_CODEC_INDEX_SOURCE_AAC: {
+    //   [[fallthrough]];
+    // case BTAV_A2DP_CODEC_INDEX_SINK_AAC: {
       if(codec_config->codecType != CodecType::AAC) {
         changed = true;
         break;
@@ -732,9 +732,9 @@ bool a2dp_get_selected_hal_codec_config(CodecConfiguration* codec_config) {
       break;
     }
 
-    case BTAV_A2DP_CODEC_INDEX_SOURCE_AAC:
-      [[fallthrough]];
-    case BTAV_A2DP_CODEC_INDEX_SINK_AAC: {
+    case BTAV_A2DP_CODEC_INDEX_SOURCE_AAC: {
+    //   [[fallthrough]];
+    // case BTAV_A2DP_CODEC_INDEX_SINK_AAC: {
       codec_config->codecType = CodecType::AAC;
       codec_config->config.aacConfig = {};
       auto aac_config = codec_config->config.aacConfig;

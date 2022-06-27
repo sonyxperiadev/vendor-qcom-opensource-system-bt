@@ -248,7 +248,7 @@ class BleAdvertiserInterfaceImpl : public BleAdvertiserInterface {
                           jni_thread_wrapper(FROM_HERE, cb)));
   }
 
-  void CreateBIG(int advertiser_id, CreateBIGParameters create_big_params,
+    /*  void CreateBIG(int advertiser_id, CreateBIGParameters create_big_params,
                  CreateBIGCallback cb) override {
     VLOG(1) << __func__ << " advertiser_id: " << +advertiser_id;
   }
@@ -256,7 +256,7 @@ class BleAdvertiserInterfaceImpl : public BleAdvertiserInterface {
   void TerminateBIG(int advertiser_id, int big_handle, int reason,
                     TerminateBIGCallback cb) override {
     VLOG(1) << __func__ << "big_handle: " << +big_handle;
-  }
+    }*/
 
 };
 

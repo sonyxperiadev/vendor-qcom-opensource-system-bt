@@ -4384,8 +4384,8 @@ static bt_status_t init_src(
 static bt_status_t init_src(
     btav_source_callbacks_t* callbacks,
     int max_connected_audio_devices,
-    const std::vector<btav_a2dp_codec_config_t> &codec_priorities,
-    const std::vector<btav_a2dp_codec_config_t> &offload_enabled_codecs) {
+    std::vector<btav_a2dp_codec_config_t> &codec_priorities/*,
+                                                                   const std::vector<btav_a2dp_codec_config_t> &offload_enabled_codecs*/) {
   int a2dp_multicast_state = controller_get_interface()->is_multicast_enabled();
   if(max_connected_audio_devices > BTIF_AV_NUM_CB) {
     BTIF_TRACE_ERROR("%s: App setting maximum allowable connections(%d) \
@@ -4410,7 +4410,7 @@ static bt_status_t init_src(
     collision_detect[i].conn_retry_count = 1;
     collision_detect[i].av_coll_detected_timer = NULL;
   }
-  return init_src(callbacks, codec_priorities, offload_enabled_codecs,
+  return init_src(callbacks, codec_priorities, {},
                 max_connected_audio_devices, a2dp_multicast_state);
 }
 
@@ -4705,16 +4705,16 @@ static bt_status_t sink_disconnect_src(const RawAddress& bd_addr) {
  * Returns          bt_status_t
  *
  ******************************************************************************/
-static bt_status_t set_silence_device(const RawAddress& bd_addr, bool silence) {
-  BTIF_TRACE_EVENT("%s silence = %d", __func__, silence);
-  CHECK_BTAV_INIT();
+// static bt_status_t set_silence_device(const RawAddress& bd_addr, bool silence) {
+//   BTIF_TRACE_EVENT("%s silence = %d", __func__, silence);
+//   CHECK_BTAV_INIT();
 
-  btif_av_silent_req_t silent_req;
-  silent_req.bd_addr = bd_addr;
-  silent_req.is_silent = silence;
-  return btif_transfer_context(btif_av_handle_event, BTIF_AV_SET_SILENT_REQ_EVT,
-                               (char *)&silent_req, sizeof(silent_req), NULL);
-}
+//   btif_av_silent_req_t silent_req;
+//   silent_req.bd_addr = bd_addr;
+//   silent_req.is_silent = silence;
+//   return btif_transfer_context(btif_av_handle_event, BTIF_AV_SET_SILENT_REQ_EVT,
+//                                (char *)&silent_req, sizeof(silent_req), NULL);
+// }
 
 /*******************************************************************************
  *
@@ -4978,7 +4978,7 @@ static const btav_source_interface_t bt_av_src_interface = {
     init_src,
     src_connect_sink,
     src_disconnect_sink,
-    set_silence_device,
+    // set_silence_device,
     set_active_device,
     codec_config_src,
     cleanup_src,
@@ -4996,7 +4996,7 @@ static const btav_sink_interface_t bt_av_sink_interface = {
     cleanup_sink,
     update_audio_focus_state,
     update_audio_track_gain,
-    set_active_device,
+    //    set_active_device,
 };
 
 RawAddress btif_av_get_addr_by_index(int idx) {
